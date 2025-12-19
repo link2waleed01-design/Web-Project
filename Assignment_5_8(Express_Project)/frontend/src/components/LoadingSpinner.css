@@ -1,0 +1,48 @@
+/* Loading Spinner Styles - BeEnergy Theme */
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.spinner {
+    border: 4px solid #eee;
+    border-top: 4px solid #285eaf;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Sizes */
+.loading-spinner.small .spinner {
+    width: 24px;
+    height: 24px;
+}
+
+.loading-spinner.medium .spinner {
+    width: 40px;
+    height: 40px;
+}
+
+.loading-spinner.large .spinner {
+    width: 50px;
+    height: 50px;
+}
+
+.loading-text {
+    margin-top: 15px;
+    color: #848484;
+    font-size: 14px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

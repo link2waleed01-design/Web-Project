@@ -1,0 +1,118 @@
+/* Footer Styles - BeEnergy Theme */
+
+.footer {
+    margin-top: auto;
+}
+
+.footer-top {
+    background-color: #557f93;
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
+}
+
+.footer-top h2 {
+    font-size: 26px;
+    font-weight: 400;
+    margin: 0 0 8px;
+}
+
+.footer-top h3 {
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.footer-middle {
+    background-color: #839ca3;
+    padding: 30px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    max-width: 350px;
+    color: white;
+}
+
+.footer-section.with-logo {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 12px;
+}
+
+.footer-section p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    font-size: 13px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    opacity: 0.7;
+}
+
+.footer-bottom {
+    background-color: #8c9fa5;
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: white;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-top h2 {
+        font-size: 20px;
+    }
+
+    .footer-top h3 {
+        font-size: 16px;
+    }
+
+    .footer-middle {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section.with-logo {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,190 @@
+/* Profile Page Styles - BeEnergy Theme */
+
+.profile-page {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #285eaf 0%, #204d99 100%);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.page-header h1 {
+    color: white;
+    font-size: 32px;
+    margin: 0;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 25px 20px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 25px;
+}
+
+/* User Card */
+.user-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    height: fit-content;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #285eaf, #204d99);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 auto 15px;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.user-email {
+    color: #848484;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.user-role {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.user-role.admin {
+    background: #ffc107;
+    color: #444;
+}
+
+.user-role.customer {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.logout-btn {
+    margin-top: 20px;
+}
+
+/* Orders Section */
+.orders-section {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.orders-section h2 {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #285eaf;
+}
+
+.no-orders {
+    text-align: center;
+    padding: 40px;
+    color: #848484;
+}
+
+.no-orders .btn {
+    margin-top: 15px;
+}
+
+/* Order Cards */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.order-id {
+    font-weight: 700;
+    color: #444;
+    font-size: 14px;
+}
+
+.order-date {
+    color: #848484;
+    font-size: 13px;
+}
+
+.order-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.order-status.pending {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.order-status.completed {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.order-status.cancelled {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+.order-items {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.order-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: #285eaf;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}

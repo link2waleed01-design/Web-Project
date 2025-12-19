@@ -1,0 +1,64 @@
+# E-commerce Frontend - Walkthrough
+
+## Summary
+
+Built a complete React frontend for the e-commerce backend with **Energy theme** styling (vibrant green accents, dark navy backgrounds, modern animations).
+
+## What Was Built
+
+### User Panel
+| Page | Features |
+|------|----------|
+| Home | Hero section, featured products, features grid, CTA |
+| Products | Category filters, search, price range, product grid |
+| Product Detail | Image gallery, add to cart, stock status |
+| Cart | Item management, quantity updates, order summary |
+| Checkout | Order review, place order |
+| Profile | User info, order history |
+| Login/Register | JWT authentication |
+
+### Admin Panel
+| Page | Features |
+|------|----------|
+| Dashboard | Stats cards, recent orders, quick actions |
+| Products | CRUD operations with modal forms |
+| Categories | CRUD operations with modal forms |
+| Orders | Status updates (pending/completed/cancelled) |
+| Users | User list with role badges |
+
+## Technology Stack
+- React 19 + Vite
+- React Router DOM
+- Axios with JWT interceptors
+- Context API (Auth + Cart)
+
+## Folder Structure
+```
+frontend/src/
+├── components/     # Navbar, Footer, ProductCard, etc.
+├── context/        # AuthContext, CartContext
+├── pages/          # User pages
+│   └── admin/      # Admin pages
+├── services/       # API service layer
+├── App.jsx         # Main routing
+└── App.css         # Global styles
+```
+
+## Verification
+
+✅ Frontend dev server runs on http://localhost:5173  
+✅ Homepage loads with hero section  
+✅ Products page renders with filters  
+✅ Login/Register forms work  
+✅ Navigation works correctly  
+✅ Energy theme styling applied  
+
+## Running the Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+> Backend must be running on port 5001

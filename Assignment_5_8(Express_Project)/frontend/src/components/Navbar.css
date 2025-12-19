@@ -1,0 +1,167 @@
+/* Navbar Styles - BeEnergy Theme */
+
+.navbar {
+    background-color: #285eaf;
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+/* Logo */
+.navbar-logo {
+    flex-shrink: 0;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+}
+
+/* Navigation Links */
+.navbar-links {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #204d99;
+    color: white;
+}
+
+/* Right Section */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Cart */
+.cart-link {
+    position: relative;
+    font-size: 1.25rem;
+    color: white;
+    transition: transform 0.3s ease;
+    padding: 6px;
+}
+
+.cart-link:hover {
+    transform: scale(1.1);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    background: #FF0000;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* User Menu */
+.user-menu,
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-name {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Nav Buttons */
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.login-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+.signup-btn {
+    background: #FF0000;
+    color: white;
+}
+
+.signup-btn:hover {
+    background: #cc0000;
+}
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-container {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .navbar-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .logo-image {
+        height: 40px;
+    }
+}
