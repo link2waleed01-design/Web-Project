@@ -24,8 +24,9 @@ import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
+import OrderPreview from './pages/OrderPreview';
 import OrderSuccess from './pages/OrderSuccess';
+import MyOrders from './pages/MyOrders';
 import Profile from './pages/Profile';
 
 // Admin Pages
@@ -54,11 +55,12 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/my-orders" element={<MyOrders />} />
 
                   {/* Protected User Routes */}
-                  <Route path="/checkout" element={
+                  <Route path="/order-preview" element={
                     <ProtectedRoute>
-                      <Checkout />
+                      <OrderPreview />
                     </ProtectedRoute>
                   } />
                   <Route path="/order-success" element={

@@ -1,0 +1,103 @@
+# Post-Cart & Admin Operations - Implementation Walkthrough
+
+## Summary
+
+Implemented 4 features for post-cart and admin operations as requested.
+
+---
+
+## Task 1: Order Preview & Finalize
+
+### Backend
+- **Route**: `POST /api/orders/preview` - Returns cart preview with prices
+- **Route**: `POST /api/orders/confirm` - Creates order with "Placed" status
+
+### Frontend
+- **OrderPreview page**: Shows items, prices, coupon input, confirm/back buttons
+- **Flow**: Cart → Preview → Confirm → Success
+
+---
+
+## Task 2: Coupon / Discount Middleware
+
+### Backend
+- **Middleware**: [applyDiscount.js](file:///Users/waleedahmad/EcommerceStore/backend/middleware/applyDiscount.js)
+- **Supported coupons**: `SAVE10` (10%), `SAVE15` (15%), `SAVE20` (20%)
+- Applied before order is saved, reusable across routes
+
+### Frontend
+- Coupon input on Order Preview page
+- Shows discount amount and savings
+
+---
+
+## Task 3: Customer Order History
+
+### Backend
+- **Route**: `POST /api/orders/my-orders` - Public, accepts email
+
+### Frontend
+- **MyOrders page**: Email input form, displays orders with ID, Date, Total, Status
+- **Access**: Navbar "Order History" link (public)
+
+---
+
+## Task 4: Order Status Lifecycle
+
+### Backend
+Updated statuses: `Placed` → `Processing` → `Delivered` | `Cancelled`
+
+**Transition Rules**:
+| From | Allowed Transitions |
+|------|---------------------|
+| Placed | Processing, Cancelled |
+| Processing | Delivered, Cancelled |
+| Delivered | (none) |
+| Cancelled | (none) |
+
+### Frontend
+- AdminOrders shows visual lifecycle with current status highlighted
+- Only valid transitions shown as buttons
+
+---
+
+## Files Changed
+
+### Backend
+| File | Change |
+|------|--------|
+| [models/Order.js](file:///Users/waleedahmad/ecommerce_backend/models/Order.js) | Added email, subtotal, couponCode, discountAmount, new statuses |
+| [middleware/applyDiscount.js](file:///Users/waleedahmad/EcommerceStore/backend/middleware/applyDiscount.js) | NEW - Coupon middleware |
+| [controllers/orderController.js](file:///Users/waleedahmad/ecommerce_backend/controllers/orderController.js) | Added previewOrder, confirmOrder, getOrdersByEmail, status validation |
+| [routes/orderRoutes.js](file:///Users/waleedahmad/ecommerce_backend/routes/orderRoutes.js) | Added /preview, /confirm, /my-orders routes |
+
+### Frontend
+| File | Change |
+|------|--------|
+| [services/api.js](file:///Users/waleedahmad/EcommerceStore/frontend/src/services/api.js) | Added preview, confirm, getByEmail methods |
+| [pages/OrderPreview.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/pages/OrderPreview.jsx) | NEW - Order preview page |
+| [pages/MyOrders.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/pages/MyOrders.jsx) | NEW - Order history by email |
+| [pages/admin/AdminOrders.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/pages/admin/AdminOrders.jsx) | Status lifecycle with transitions |
+| [App.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/App.jsx) | Added new routes |
+| [components/Navbar.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/components/Navbar.jsx) | Added Order History link |
+| [pages/Cart.jsx](file:///Users/waleedahmad/EcommerceStore/frontend/src/pages/Cart.jsx) | Changed to link to Order Preview |
+
+---
+
+## Usage
+
+### Customer Flow
+1. Add products to cart
+2. Click "Proceed to Preview"
+3. Enter coupon code (optional)
+4. Click "Confirm Order"
+
+### Order History
+1. Navigate to "Order History" in navbar
+2. Enter email address
+3. View all orders placed with that email
+
+### Admin Status Updates
+1. Go to Admin → Orders
+2. Click "Update" on an order
+3. Choose next valid status (Placed→Processing→Delivered)

@@ -72,10 +72,19 @@ export const categoriesAPI = {
 
 // Orders API
 export const ordersAPI = {
-    create: (data) => api.post('/orders', data),
+    // Preview order before confirming
+    preview: (data) => api.post('/orders/preview', data),
+    // Confirm and create order
+    confirm: (data) => api.post('/orders/confirm', data),
+    // Get orders by email (public)
+    getByEmail: (email) => api.post('/orders/my-orders', { email }),
+    // Admin: Get all orders
     getAll: (params) => api.get('/orders', { params }),
+    // Get user's orders
     getUserOrders: (userId) => api.get(`/orders/user/${userId}`),
+    // Get single order
     getById: (id) => api.get(`/orders/${id}`),
+    // Admin: Update order status
     updateStatus: (id, status) => api.put(`/orders/${id}`, { status })
 };
 

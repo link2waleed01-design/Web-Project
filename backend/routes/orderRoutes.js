@@ -1,8 +1,8 @@
 /**
  * Order Routes
  * 
- * Authenticated routes for order management.
- * Customer routes: Create order, Get own orders
+ * Routes for order management.
+ * Customer routes: Preview, Confirm, Get own orders, Order history by email
  * Admin routes: Get all orders, Update order status
  */
 
@@ -11,7 +11,9 @@ const router = express.Router();
 
 // Import controller functions
 const {
-    createOrder,
+    previewOrder,
+    confirmOrder,
+    getOrdersByEmail,
     getAllOrders,
     getUserOrders,
     getOrderById,
@@ -21,13 +23,26 @@ const {
 // Import middleware
 const { protect } = require('../middleware/auth');
 const { adminOnly } = require('../middleware/roleAuth');
+const { applyDiscount } = require('../middleware/applyDiscount');
 
-// All routes require authentication
+/**
+ * @route   POST /api/orders/my-orders
+ * @desc    Get orders by email (Order History)
+ * @access  Public
+ * 
+ * Request body:
+ * {
+ *   "email": "customer@example.com"
+ * }
+ */
+router.post('/my-orders', getOrdersByEmail);
+
+// Protected routes (require authentication)
 router.use(protect);
 
 /**
- * @route   POST /api/orders
- * @desc    Create new order
+ * @route   POST /api/orders/preview
+ * @desc    Preview order with discounts applied
  * @access  Private (authenticated users)
  * 
  * Request body:
@@ -35,10 +50,27 @@ router.use(protect);
  *   "products": [
  *     { "product": "productId1", "quantity": 2 },
  *     { "product": "productId2", "quantity": 1 }
- *   ]
+ *   ],
+ *   "couponCode": "SAVE10"  // optional
  * }
  */
-router.post('/', createOrder);
+router.post('/preview', applyDiscount, previewOrder);
+
+/**
+ * @route   POST /api/orders/confirm
+ * @desc    Confirm and create order
+ * @access  Private (authenticated users)
+ * 
+ * Request body:
+ * {
+ *   "products": [
+ *     { "product": "productId1", "quantity": 2 },
+ *     { "product": "productId2", "quantity": 1 }
+ *   ],
+ *   "couponCode": "SAVE10"  // optional
+ * }
+ */
+router.post('/confirm', applyDiscount, confirmOrder);
 
 /**
  * @route   GET /api/orders
@@ -46,7 +78,7 @@ router.post('/', createOrder);
  * @access  Private/Admin
  * 
  * Query parameters:
- * - status: Filter by status (pending, completed, cancelled)
+ * - status: Filter by status (Placed, Processing, Delivered, Cancelled)
  */
 router.get('/', adminOnly, getAllOrders);
 
@@ -71,8 +103,13 @@ router.get('/:id', getOrderById);
  * 
  * Request body:
  * {
- *   "status": "completed" // pending, completed, or cancelled
+ *   "status": "Processing"  // Placed, Processing, Delivered, or Cancelled
  * }
+ * 
+ * Status transitions:
+ * - Placed → Processing or Cancelled
+ * - Processing → Delivered or Cancelled
+ * - Delivered/Cancelled → No further changes
  */
 router.put('/:id', adminOnly, updateOrderStatus);
 

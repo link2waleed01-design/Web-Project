@@ -3,6 +3,7 @@
  * 
  * Defines the schema for order documents in MongoDB.
  * Orders contain references to users and products with quantities.
+ * Supports order status lifecycle and coupon discounts.
  */
 
 const mongoose = require('mongoose');
@@ -13,6 +14,7 @@ const mongoose = require('mongoose');
  * Defines the structure for individual items within an order.
  * @property {ObjectId} product - Reference to Product model
  * @property {Number} quantity - Quantity of the product ordered
+ * @property {Number} price - Price at time of order
  */
 const orderItemSchema = new mongoose.Schema({
     product: {
@@ -24,6 +26,10 @@ const orderItemSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: [1, 'Quantity must be at least 1']
+    },
+    price: {
+        type: Number,
+        required: true
     }
 }, { _id: false }); // Don't create _id for subdocuments
 
@@ -31,9 +37,13 @@ const orderItemSchema = new mongoose.Schema({
  * Order Schema Definition
  * 
  * @property {ObjectId} user - Reference to User model (required)
- * @property {Array} products - Array of order items (product + quantity)
- * @property {Number} totalPrice - Total order price
- * @property {String} status - Order status: 'pending', 'completed', or 'cancelled'
+ * @property {String} email - Customer email for order lookup
+ * @property {Array} products - Array of order items (product + quantity + price)
+ * @property {Number} subtotal - Total before discount
+ * @property {String} couponCode - Applied coupon code
+ * @property {Number} discountAmount - Discount amount applied
+ * @property {Number} totalPrice - Final total after discount
+ * @property {String} status - Order status lifecycle
  * @property {Date} createdAt - Timestamp of order creation
  */
 const orderSchema = new mongoose.Schema({
@@ -41,6 +51,10 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: [true, 'Order must belong to a user']
+    },
+    email: {
+        type: String,
+        required: [true, 'Order must have an email']
     },
     products: {
         type: [orderItemSchema],
@@ -52,6 +66,19 @@ const orderSchema = new mongoose.Schema({
             message: 'Order must contain at least one product'
         }
     },
+    subtotal: {
+        type: Number,
+        required: true,
+        min: [0, 'Subtotal cannot be negative']
+    },
+    couponCode: {
+        type: String,
+        default: null
+    },
+    discountAmount: {
+        type: Number,
+        default: 0
+    },
     totalPrice: {
         type: Number,
         required: [true, 'Please provide total price'],
@@ -60,10 +87,10 @@ const orderSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: {
-            values: ['pending', 'completed', 'cancelled'],
-            message: 'Status must be: pending, completed, or cancelled'
+            values: ['Placed', 'Processing', 'Delivered', 'Cancelled'],
+            message: 'Status must be: Placed, Processing, Delivered, or Cancelled'
         },
-        default: 'pending'
+        default: 'Placed'
     },
     createdAt: {
         type: Date,
@@ -75,15 +102,14 @@ const orderSchema = new mongoose.Schema({
  * Pre-find middleware to populate user and product details
  * This automatically populates references when querying orders
  */
-orderSchema.pre(/^find/, function (next) {
+orderSchema.pre(/^find/, function () {
     this.populate({
         path: 'user',
         select: 'name email'
     }).populate({
         path: 'products.product',
-        select: 'title price'
+        select: 'title price images'
     });
-    next();
 });
 
 module.exports = mongoose.model('Order', orderSchema);

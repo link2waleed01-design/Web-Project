@@ -128,8 +128,8 @@ const Cart = () => {
                             <span>${cartTotal.toFixed(2)}</span>
                         </div>
 
-                        <Link to="/checkout" className="btn btn-primary checkout-btn">
-                            Proceed to Checkout
+                        <Link to="/order-preview" className="btn btn-primary checkout-btn">
+                            Proceed to Preview
                         </Link>
 
                         <button onClick={clearCart} className="btn clear-cart-btn">

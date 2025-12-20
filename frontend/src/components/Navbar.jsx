@@ -33,8 +33,9 @@ const Navbar = () => {
                 <div className="navbar-links">
                     <Link to="/" className="nav-link active">Home</Link>
                     <Link to="/products" className="nav-link">Products</Link>
+                    <Link to="/my-orders" className="nav-link">Order History</Link>
                     {isAuthenticated && (
-                        <Link to="/profile" className="nav-link">My Orders</Link>
+                        <Link to="/profile" className="nav-link">Profile</Link>
                     )}
                     {isAdmin && (
                         <Link to="/admin" className="nav-link">Admin</Link>
